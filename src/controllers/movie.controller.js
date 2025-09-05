@@ -11,7 +11,7 @@ function GetAllMovies(req, res, next) {
             title: "Movielist", 
             movies: movies 
         };
-        const view = "movie/index";
+        const view = "movies";
         res.render(view, model);
     });
 }

@@ -1,4 +1,3 @@
-const { useCallback } = require("react");
 
 function getMovies(callback) {
     const movies = [

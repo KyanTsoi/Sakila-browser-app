@@ -7,7 +7,7 @@ const logger = require("./src/util/logger");
 
 const indexRouter = require("./src/routes/index");
 const usersRouter = require("./src/routes/users");
-movieRouter = require("./src/routes/movie.routes");
+const movieRouter = require("./src/routes/movie.routes");
 
 const app = express();
 
