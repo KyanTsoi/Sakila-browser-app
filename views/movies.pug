@@ -3,14 +3,20 @@ extends layout
 block content
   h1.mb-4= title
 
-  // Bootstrap rij voor het rooster
-  .row.g-4
-    // Loop door elke film
-    each movie in movies
-      // Maak een kolom. 'col-md-3' betekent 4 kolommen op medium schermen en groter.
-      .col-md-3
-        // Bootstrap Card component
-        .card.h-100
-          img.card-img-top(src="https://placehold.co/200x300", alt="Film Poster")
-          .card-body
-            h5.card-title= movie.title
+  // Controleer of er films zijn om weer te geven
+  if movies && movies.length > 0
+    // De 'row' is de container voor ons rooster.
+    // De 'row-cols-*' klassen bepalen hoeveel kolommen er standaard zijn op verschillende schermgroottes.
+    .row.row-cols-1.row-cols-sm-2.row-cols-md-4.row-cols-lg-5.g-4
+      // Loop door elke film
+      each movie in movies
+        // De 'col' div is niet meer nodig, de 'row' regelt de breedte.
+        // Bootstrap Card met gelijke hoogte
+        .col
+          .card.h-100
+            img.card-img-top(src="https://placehold.co/200x300/212529/ffffff?text=Film", alt="Filmposter")
+            .card-body
+              h5.card-title= movie.title
+  else
+    // Toon een melding als er geen films zijn
+    .alert.alert-info Geen films gevonden.
