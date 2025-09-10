@@ -1,0 +1,16 @@
+//- views/partials/_movie-grid.pug
+
+if movies && movies.length > 0
+  // De 'row' is de container voor ons rooster
+  .row.row-cols-1.row-cols-sm-2.row-cols-md-4.row-cols-lg-5.g-5
+    // Loop door elke film
+    each movie in movies
+      .col
+        // Wrap de kaart in een <a> tag met een unieke klasse
+        a.card.h-100.text-decoration-none.text-dark.movie-card-link(href=`/movies/${movie.film_id}`)
+          img.card-img-top(src="https://placehold.co/200x300/212529/ffffff?text=Film", alt="Filmposter")
+          .card-body
+            h5.card-title= movie.title
+else
+  // Toon een melding als er geen films zijn
+  .alert.alert-info Geen films gevonden.

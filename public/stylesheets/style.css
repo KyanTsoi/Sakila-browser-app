@@ -43,3 +43,22 @@
 #main-content-wrapper main {
   flex-grow: 1;
 }
+
+
+.movie-card-link {
+  display: block; /* Zorgt ervoor dat de link het hele 'col' blok vult */
+  /* Zorgt voor een soepele overgang (animatie) */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Het effect dat wordt toegepast als je eroverheen zweeft */
+.movie-card-link:hover {
+  /* Maak de kaart iets groter */
+  transform: scale(1.05);
+  
+  /* Voeg een subtiele schaduw toe voor een 'lift'-effect */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  
+  /* Zorgt dat de kaart boven de andere kaarten uitsteekt */
+  z-index: 10; 
+}

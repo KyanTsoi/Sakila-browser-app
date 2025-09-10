@@ -1,3 +1,4 @@
+
 extends layout
 
 block content
@@ -7,16 +8,7 @@ block content
   include partials/_pagination
 
   // --- FILMLIJST ---
-  if movies && movies.length > 0
-    .row.row-cols-1.row-cols-sm-2.row-cols-md-4.row-cols-lg-5.g-5
-      each movie in movies
-        .col
-          .card.h-100
-            img.card-img-top(src="https://placehold.co/200x300/212529/ffffff?text=Film", alt="Filmposter")
-            .card-body
-              h5.card-title= movie.title
-  else
-    .alert.alert-info Geen films gevonden.
+  include partials/_movie-grid
     
   // --- PAGINERING ONDERAAN ---
   include partials/_pagination
