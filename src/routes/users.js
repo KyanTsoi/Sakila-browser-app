@@ -1,10 +1,6 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const mw = require('../middleware/auth.js');
+const userController = require('../controllers/user.controller');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.render('respond with a resource');
-});
-
-
-module.exports = router;
+router.get('/user/:id', mw.authenticate, userController.getUser);
