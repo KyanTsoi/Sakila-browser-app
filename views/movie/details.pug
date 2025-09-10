@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+  // Controleer of er een filmobject is meegegeven
+  if movie
+    .card
+      .card-header
+        // De titel van de film in de header van de kaart
+        h1.mb-0= movie.title
+      .card-body
+        h5.card-title Beschrijving
+        p.card-text= movie.description
+      // Een lijst met extra details
+      ul.list-group.list-group-flush
+        li.list-group-item
+          strong Jaar van uitgave:
+          |  #{movie.release_year}
+        li.list-group-item
+          strong Speelduur:
+          |  #{movie.length} minuten
+        li.list-group-item
+          strong Beoordeling:
+          |  #{movie.rating}
+  else
+    // Toon een melding als de film niet is gevonden
+    .alert.alert-warning Film niet gevonden.

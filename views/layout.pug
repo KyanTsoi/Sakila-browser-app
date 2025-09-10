@@ -1,57 +1,16 @@
 doctype html
 html(lang="nl")
   head
-    meta(charset="utf-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1")
-    title= title
-    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN", crossorigin="anonymous")
-    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css")
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    include partials/_head
 
   body
-    // 1. De smalle, permanente balk als achtergrond voor de knop
-    .sidebar-stub
+    include partials/_sidebar
 
-    // 2. De hamburger-knop
-    a#sidebar-toggle-button(data-bs-toggle="offcanvas", href="#sidebarMenu", role="button", aria-controls="sidebarMenu")
-      i.bi.bi-list
-
-    // 3. De Offcanvas zijbalk (onveranderd)
-    aside#sidebarMenu.offcanvas.offcanvas-start.text-bg-dark.p-3(tabindex="-1")
-      .offcanvas-header
-        h5.offcanvas-title Sakila App
-        button.btn-close.btn-close-white(type="button", data-bs-dismiss="offcanvas", aria-label="Close")
-      .offcanvas-body
-        nav
-          ul.nav.nav-pills.flex-column.mb-auto
-            li.nav-item
-              a.nav-link.text-white(href="/") Home
-            li.nav-item
-              a.nav-link.text-white(href="/movies") Films
-            li.nav-item
-              a.nav-link.text-white(href="/users/user/1") Gebruiker 1
-
-    // 4. De hoofdcontent wrapper
+    //- De hoofdcontent wrapper
     #main-content-wrapper
       main.flex-grow-1.p-4
         block content
       footer.bg-light.text-center
         .text-center.p-3 © 2025 Sakila Browser App. Alle rechten voorbehouden.
 
-    // Bootstrap JS
-    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js", integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL", crossorigin="anonymous")
-    
-    // 5. Script om de knop te verbergen/tonen
-    script.
-      const sidebar = document.getElementById('sidebarMenu');
-      const toggleButton = document.getElementById('sidebar-toggle-button');
-      
-      sidebar.addEventListener('show.bs.offcanvas', () => {
-        toggleButton.style.opacity = '0';
-        toggleButton.style.pointerEvents = 'none'; // Maak de knop onklikbaar als hij onzichtbaar is
-      });
-      
-      sidebar.addEventListener('hidden.bs.offcanvas', () => {
-        toggleButton.style.opacity = '1';
-        toggleButton.style.pointerEvents = 'auto'; // Maak weer klikbaar
-      });
+    include partials/_scripts

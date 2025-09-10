@@ -1,23 +1,50 @@
-var express = require("express");
-var router = express.Router();
 const movieService = require("../services/movie.service");
+const logger = require("../util/logger");
 
-function GetAllMovies(req, res, next) {
-    const model = { title: "Movies" };
+function getAllMovies(req, res, next) {
+    // Haal het paginanummer uit de URL, met 1 als standaardwaarde.
+    const page = parseInt(req.query.page) || 1;
 
-    movieService.getMovies((err, movies) => {
-
-         if (err) {
-            console.error('Fout bij het ophalen van films:', err);
-            return next(err); // Stuur de fout door naar de error handler
+    movieService.getPaginatedMovies(page, (err, data) => {
+        if (err) {
+            console.error('Fout bij het ophalen van gepagineerde films:', err);
+            return next(err);
         }
+
         const model = { 
-            title: "Movielist", 
-            movies: movies 
+            title: `Films (Pagina ${page})`, 
+            movies: data.movies,
+            pagination: data.pagination // Geef het nieuwe pagination-object door
         };
-        const view = "movies";
-        res.render(view, model);
+        
+        res.render("movies", model);
     });
 }
 
-module.exports = { GetAllMovies };
+function getMovieById(req, res, next) {
+    const movieId = req.params.id;
+
+    movieService.getMovieById(movieId, (err, movie) => {
+        if (err) {
+            logger.error(`Fout bij ophalen film ${movieId}:`, err.message);
+            return next(err);
+        }
+        // Als de film niet gevonden is, maak een 404-fout
+        if (!movie) {
+            return next({ status: 404, message: 'Film niet gevonden' });
+        }
+
+        const model = {
+            title: movie.title,
+            movie: movie
+        };
+        
+        res.render("movie/details", model);
+    });
+}
+
+
+module.exports = { 
+    getAllMovies,
+    getMovieById
+};
