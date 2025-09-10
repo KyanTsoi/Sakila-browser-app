@@ -4,4 +4,22 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    // De zijbalk voor navigatie
+    .sidebar
+      h2 Sakila App
+      nav
+        ul
+          li
+            a(href="/") Home
+          li
+            a(href="/movies") Films
+          li
+            a(href="/users/user/1") Gebruiker 1
+
+    // De container voor de pagina-inhoud en footer
+    .content-wrapper
+      main.main-content
+        block content
+      
+      footer.footer
+        p &copy; 2025 Sakila Browser App. Alle rechten voorbehouden.
