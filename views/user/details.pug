@@ -1,14 +1,11 @@
 extends ../layout
 
 block content
-  h1 Gebruiker Details
-  if user
-    ul
-      li
-        strong ID:
-        | #{user.id}
-      li
-        strong Voornaam:
-        | #{user.name}
-  else
-    p De opgevraagde gebruiker kon niet worden gevonden.
+  h1.mb-4 Gebruiker Details
+
+  // Gebruik een Bootstrap Card om de data te tonen
+  .card(style="width: 24rem;")
+    .card-body
+      h5.card-title #{user.name}
+      h6.card-subtitle.mb-2.text-muted Gebruiker ID: #{user.id}
+      p.card-text Hier kan eventueel een langere beschrijving of andere gebruikersinformatie komen te staan.

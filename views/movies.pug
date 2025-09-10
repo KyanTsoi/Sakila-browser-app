@@ -1,11 +1,16 @@
 extends layout
 
 block content
-  h1= title
+  h1.mb-4= title
 
-  .movie-grid
+  // Bootstrap rij voor het rooster
+  .row.g-4
+    // Loop door elke film
     each movie in movies
-      .movie-card
-        // Dummy afbeelding van 200x300 pixels
-        img(src="https://placehold.co/200x300", alt="Film Poster")
-        h4= movie.title
+      // Maak een kolom. 'col-md-3' betekent 4 kolommen op medium schermen en groter.
+      .col-md-3
+        // Bootstrap Card component
+        .card.h-100
+          img.card-img-top(src="https://placehold.co/200x300", alt="Film Poster")
+          .card-body
+            h5.card-title= movie.title

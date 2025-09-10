@@ -1,25 +1,41 @@
 doctype html
-html
+html(lang="en")
   head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
     title= title
+    // Bootstrap CSS via CDN
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN", crossorigin="anonymous")
+    // Je eigen stylesheet (voor eventuele kleine aanpassingen)
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    // De zijbalk voor navigatie
-    .sidebar
-      h2 Sakila App
-      nav
-        ul
+    // Hoofd wrapper: vult de volledige schermhoogte en breedte
+    .d-flex.min-vh-100
+      // Zijbalk (Sidebar) met vaste breedte
+      .d-flex.flex-column.flex-shrink-0.p-3.text-white.bg-dark(style="width: 250px;")
+        a.d-flex.align-items-center.mb-3.mb-md-0.me-md-auto.text-white.text-decoration-none(href="/")
+          span.fs-4 Sakila App
+        hr
+        ul.nav.nav-pills.flex-column.mb-auto
+          li.nav-item
+            a.nav-link.text-white(href="/") Home
           li
-            a(href="/") Home
+            a.nav-link.text-white(href="/movies") Films
           li
-            a(href="/movies") Films
-          li
-            a(href="/users/user/1") Gebruiker 1
+            a.nav-link.text-white(href="/users/user/1") Gebruiker 1
+        hr
 
-    // De container voor de pagina-inhoud en footer
-    .content-wrapper
-      main.main-content
-        block content
-      
-      footer.footer
-        p &copy; 2025 Sakila Browser App. Alle rechten voorbehouden.
+      // Content Wrapper: Deze div is de sleutel!
+      // Het is een verticale flex-kolom en groeit om de rest van de horizontale ruimte te vullen.
+      .d-flex.flex-column.flex-grow-1
+        // Hoofdcontent: groeit verticaal om de footer naar beneden te duwen
+        main.flex-grow-1.p-4
+          block content
+
+        // Footer: Als kind van de groeiende wrapper, neemt het automatisch de volledige breedte aan.
+        footer.bg-light.text-center
+          .text-center.p-3
+            | © 2025 Sakila Browser App. Alle rechten voorbehouden.
+
+    // Bootstrap JS
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js", integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL", crossorigin="anonymous")
