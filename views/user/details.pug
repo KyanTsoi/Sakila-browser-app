@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+  h1 Gebruiker Details
+  if user
+    ul
+      li
+        strong ID:
+        | #{user.id}
+      li
+        strong Voornaam:
+        | #{user.name}
+  else
+    p De opgevraagde gebruiker kon niet worden gevonden.
