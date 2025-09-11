@@ -4,7 +4,15 @@ const bcrypt = require('bcrypt');
 function getUserById(id, callback) {
     return userDAO.findUserById(id, callback);
 }
-
+function createUser(userData, callback) {
+    bcrypt.hash(userData.password, saltRounds, (err, hashedPassword) => {
+        if (err) {
+            return callback(err, null);
+        }
+        const secureUserData = { ...userData, hashedPassword: hashedPassword };
+        userDAO.createUser(secureUserData, callback);
+    });
+}
 /**
  * Authenticeert een gebruiker door het wachtwoord te vergelijken.
  */
@@ -32,5 +40,6 @@ function authenticateUser(email, password, callback) {
 
 module.exports = { 
     getUserById,
-    authenticateUser
+    authenticateUser,
+    createUser
 };

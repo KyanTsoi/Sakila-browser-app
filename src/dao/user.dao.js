@@ -25,10 +25,28 @@ function findUserByEmail(email, callback) {
     });
 }
 
-// createUser functie zou hier ook moeten zijn voor registratie.
-// Voor nu focussen we op inloggen.
+function createUser(userData, callback) {
+    const query = 'INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)';
+    const params = [
+        userData.firstName,
+        userData.lastName,
+        userData.email,
+        userData.hashedPassword // Ontvangt het al gehashte wachtwoord van de service
+    ];
+    pool.query(query, params, (error, results) => {
+        if (error) {
+            // Als de e-mail al bestaat, geeft de database een 'ER_DUP_ENTRY' fout
+            if (error.code === 'ER_DUP_ENTRY') {
+                return callback(new Error('Een account met dit e-mailadres bestaat al.'), null);
+            }
+            return callback(error, null);
+        }
+        callback(null, results.insertId);
+    });
+}
 
 module.exports = { 
     findUserById,
-    findUserByEmail
+    findUserByEmail,
+    createUser
 };
