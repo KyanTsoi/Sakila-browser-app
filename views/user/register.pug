@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+  h1.mb-4= title
+  form(method="POST", action="/users/register")
+    .mb-3
+      label.form-label(for="firstName") Voornaam
+      input.form-control(type="text", name="firstName", required)
+    .mb-3
+      label.form-label(for="lastName") Achternaam
+      input.form-control(type="text", name="lastName", required)
+    .mb-3
+      label.form-label(for="email") E-mailadres
+      input.form-control(type="email", name="email", required)
+    .mb-3
+      label.form-label(for="password") Wachtwoord
+      input.form-control(type="password", name="password", required)
+    button.btn.btn-primary(type="submit") Registreren

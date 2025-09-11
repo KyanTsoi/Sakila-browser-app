@@ -1,0 +1,20 @@
+extends ../layout
+
+block content
+  // Gebruik Bootstrap's grid om het formulier in het midden te centreren
+  .row.justify-content-center
+    .col-md-6
+      h1.mb-4= title
+      
+      // Toon een foutmelding als die door de controller is meegegeven
+      if error
+        .alert.alert-danger= error
+        
+      form(method="POST", action="/login")
+        .mb-3
+          label.form-label(for="email") E-mailadres
+          input.form-control(type="email", id="email", name="email", required)
+        .mb-3
+          label.form-label(for="password") Wachtwoord
+          input.form-control(type="password", id="password", name="password", required)
+        button.btn.btn-primary(type="submit") Inloggen
