@@ -7,10 +7,10 @@ function showRegisterForm(req, res) {
 function registerUser(req, res, next) {
     userService.createUser(req.body, (err, newUserId) => {
         if (err) return next(err);
-        res.redirect(`/user/${newUserId}`);
+        // De 'redirect' is hier aangepast van "/user/" naar "/users/"
+        res.redirect(`/users/${newUserId}`);
     });
 }
-
 
 function getUser(req, res, next) {
     const userId = req.params.id;

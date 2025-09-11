@@ -1,9 +1,12 @@
 const userDAO = require('../dao/user.dao');
 const bcrypt = require('bcrypt');
 
+const saltRounds = 10; // Voeg deze regel toe
+
 function getUserById(id, callback) {
     return userDAO.findUserById(id, callback);
 }
+
 function createUser(userData, callback) {
     bcrypt.hash(userData.password, saltRounds, (err, hashedPassword) => {
         if (err) {
@@ -13,6 +16,7 @@ function createUser(userData, callback) {
         userDAO.createUser(secureUserData, callback);
     });
 }
+
 /**
  * Authenticeert een gebruiker door het wachtwoord te vergelijken.
  */
@@ -36,9 +40,7 @@ function authenticateUser(email, password, callback) {
     });
 }
 
-// createUser functie zou hier ook moeten zijn voor registratie.
-
-module.exports = { 
+module.exports = {
     getUserById,
     authenticateUser,
     createUser

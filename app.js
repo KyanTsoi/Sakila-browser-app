@@ -22,17 +22,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/", authRouter); 
-app.use("/users", usersRouter);
-app.use("/movies", movieRouter);
-
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    next(createError(404));
-});
-
 app.use(session({
     secret: 'een-heel-sterk-geheim-voor-ontwikkeling', // Vervang dit in productie met een process.env variabele
     resave: false,
@@ -43,6 +32,17 @@ app.use(session({
 app.use((req, res, next) => {
     res.locals.user = req.session.user;
     next();
+});
+
+app.use("/", indexRouter);
+app.use("/", authRouter); 
+app.use("/users", usersRouter);
+app.use("/movies", movieRouter);
+
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    next(createError(404));
 });
 
 // error handler
