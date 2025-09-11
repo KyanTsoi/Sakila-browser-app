@@ -1,5 +1,5 @@
 // user.controller.js
-const userService = require('../services/user.service');
+const userService = require('../services/customer.service');
 const logger = require('../util/logger');
 
 function getUser(req, res, next){
@@ -13,7 +13,7 @@ logger.debug(`[Controller] Op zoek naar gebruiker met ID: ${userId} (type: ${typ
       logger.error(`Fout bij ophalen gebruiker ${userId}:`, err.message);
     } else {
       const model =  { user: user };
-      const view = "user/details"
+      const view = "customer/details"
       res.render(view, model);
     }
   });

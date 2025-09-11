@@ -41,41 +41,8 @@ function findMovieById(id, callback) {
     });
 }
 
-function createMovie(movieData, callback) {
-    const query = 'INSERT INTO film (title, description, release_year, language_id) VALUES (?, ?, ?, ?)';
-    
-    // De 'language_id' is verplicht in Sakila, dus we gebruiken '1' (Engels) als standaard.
-    const params = [
-        movieData.title,
-        movieData.description,
-        movieData.release_year,
-        movieData.language_id
-    ];
-
-    pool.query(query, params, (error, results) => {
-        if (error) {
-            return callback(error, null);
-        }
-        // Geef de ID van de nieuwe film terug
-        callback(null, results.insertId);
-    });
-}
-
-function getAllLanguages(callback) {
-    const query = 'SELECT language_id, name FROM language ORDER BY name';
-
-    pool.query(query, (error, results) => {
-        if (error) {
-            return callback(error, null);
-        }
-        callback(null, results);
-    });
-}
-
 module.exports = {
     getMovies,
     countMovies,
-    findMovieById,
-    createMovie,
-    getAllLanguages
+    findMovieById
 };

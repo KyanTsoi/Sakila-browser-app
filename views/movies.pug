@@ -3,7 +3,9 @@ extends layout
 
 block content
   h1.mb-4= title
-
+  .d-flex.justify-content-between.align-items-center.mb-4
+    h1= title
+    a.btn.btn-primary(href="/movies/new") + Nieuwe Film
   // --- PAGINERING BOVENAAN ---
   include partials/_pagination
 

@@ -3,8 +3,6 @@ var router = express.Router();
 const movieController = require("../controllers/movie.controller");
 
 // Route voor de lijst met alle films (bestaand)
-router.get("/new", movieController.showCreateMovieForm);
-router.post("/", movieController.createMovie);
 
 router.get("/", movieController.getAllMovies);
 router.get("/:id", movieController.getMovieById);

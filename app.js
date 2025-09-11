@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("./src/util/logger");
 
 const indexRouter = require("./src/routes/index");
-const usersRouter = require("./src/routes/users");
+const usersRouter = require("./src/routes/customers");
 const movieRouter = require("./src/routes/movie.routes");
 
 const app = express();
@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/customers", usersRouter);
 app.use("/movies", movieRouter);
 
 
