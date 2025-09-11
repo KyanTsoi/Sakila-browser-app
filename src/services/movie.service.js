@@ -45,8 +45,28 @@ function getMovieById(id, callback) {
     });
 }
 
+function createMovie(movieData, callback) {
+    movieDAO.createMovie(movieData, (err, insertId) => {
+        if (err) {
+            return callback(err, null);
+        }
+        callback(null, insertId);
+    });
+}
+
+function getAllLanguages(callback) {
+    movieDAO.getAllLanguages((err, languages) => {
+        if (err) {
+            return callback(err, null);
+        }
+        callback(null, languages);
+    });
+}
+
 
 module.exports = {
     getPaginatedMovies,
-    getMovieById
+    getMovieById,
+    createMovie,
+    getAllLanguages
 };

@@ -1,4 +1,4 @@
-// Simuleert database-interactie
+const logger = require('../util/logger');
 function findUserById(id, callback) {
   // Simulatie van een database call
   setTimeout(() => {
@@ -7,12 +7,12 @@ function findUserById(id, callback) {
       { id: '2', name: 'Anna de Vries' }
     ];
 
-    console.log(`[DAO] Ontvangen ID: ${id} (type: ${typeof id})`);
+    logger.debug(`[DAO] Ontvangen ID: ${id} (type: ${typeof id})`);
 
 
     const user = users.find(u => u.id === id);
 
-    console.log('[DAO] Gevonden gebruiker:', user);
+    logger.debug('[DAO] Gevonden gebruiker: ' + user.name);
 
 
     if (!user) {

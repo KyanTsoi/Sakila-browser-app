@@ -4,8 +4,8 @@ const mysql = require('mysql2');
 // omdat het verbindingen hergebruikt.
 const pool = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || 'Mysql123!@#',
+  user: process.env.DB_USER || 'app_customer',
+  password: process.env.DB_PASSWORD || 'Mysql123!@#Customer',
   database: process.env.DB_DATABASE || 'sakila',
   port: process.env.DB_PORT || 3306,
   waitForConnections: true,

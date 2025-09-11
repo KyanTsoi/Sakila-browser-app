@@ -1,0 +1,29 @@
+extends ../layout
+
+block content
+  h1.mb-4= title
+
+  form(method="POST", action="/movies")
+    .mb-3
+      label.form-label(for="title") Titel
+      input.form-control(type="text", id="title", name="title", required)
+    
+    .mb-3
+      label.form-label(for="description") Beschrijving
+      textarea.form-control(id="description", name="description", rows="4")
+      
+    .mb-3
+      label.form-label(for="release_year") Jaar van uitgave
+      input.form-control(type="number", id="release_year", name="release_year", min="1900", max="2099", step="1")
+    
+    //- Dropdown voor talen
+    .mb-3
+      label.form-label(for="language_id") Taal
+      select.form-select(id="language_id", name="language_id", required)
+        option(value="", disabled, selected) -- Selecteer een taal --
+        //- Loop door de talen die de controller heeft meegegeven
+        if languages
+          each lang in languages
+            option(value=lang.language_id)= lang.name
+            
+    button.btn.btn-primary(type="submit") Film Opslaan
