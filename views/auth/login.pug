@@ -1,12 +1,11 @@
 extends ../layout
 
 block content
-  // Gebruik Bootstrap's grid om het formulier in het midden te centreren
   .row.justify-content-center
-    .col-md-6
+    .col-md-6.col-lg-4
       h1.mb-4= title
       
-      // Toon een foutmelding als die door de controller is meegegeven
+      //- Toon een foutmelding als die er is
       if error
         .alert.alert-danger= error
         
