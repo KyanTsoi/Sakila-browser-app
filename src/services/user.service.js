@@ -1,7 +1,8 @@
 const userDAO = require('../dao/user.dao');
 const bcrypt = require('bcrypt');
 
-const saltRounds = 10; // Voeg deze regel toe
+const saltRounds = 10; // wachtwoord hash complexiteit
+const MOVIES_PER_PAGE = 20; // Aantal films per pagina voor de watchlist
 
 function getUserById(id, callback) {
     return userDAO.findUserById(id, callback);
@@ -40,8 +41,52 @@ function authenticateUser(email, password, callback) {
     });
 }
 
+function getPaginatedWatchlist(userId, page, callback) {
+    const offset = (page - 1) * MOVIES_PER_PAGE;
+
+    userDAO.countFavoriteMovies(userId, (err, totalMovies) => {
+        if (err) {
+            return callback(err, null);
+        }
+
+        userDAO.getFavoriteMovies(userId, MOVIES_PER_PAGE, offset, (err, movies) => {
+            if (err) {
+                return callback(err, null);
+            }
+
+            const totalPages = Math.ceil(totalMovies / MOVIES_PER_PAGE);
+
+            const result = {
+                movies: movies,
+                pagination: {
+                    currentPage: page,
+                    totalPages: totalPages
+                }
+            };
+            callback(null, result);
+        });
+    });
+}
+
+
+function checkIfMovieIsFavorite(userId, filmId, callback) {
+    return userDAO.isMovieInFavorites(userId, filmId, callback);
+}
+
+function addMovieToWatchlist(userId, filmId, callback) {
+    return userDAO.addFavoriteMovie(userId, filmId, callback);
+}
+
+function removeMovieFromWatchlist(userId, filmId, callback) {
+    return userDAO.removeFavoriteMovie(userId, filmId, callback);
+}
+
 module.exports = {
     getUserById,
     authenticateUser,
-    createUser
+    createUser,
+    getPaginatedWatchlist,
+    checkIfMovieIsFavorite,
+    addMovieToWatchlist,
+    removeMovieFromWatchlist
 };

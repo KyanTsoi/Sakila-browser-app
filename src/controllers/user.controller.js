@@ -32,4 +32,51 @@ function getUser(req, res, next) {
     });
 }
 
-module.exports = { showRegisterForm, registerUser, getUser };
+function showWatchlist(req, res, next) {
+    if (!req.session.user) return res.redirect('/login');
+
+    const page = parseInt(req.query.page) || 1;
+    const userId = req.session.user.user_id;
+
+    userService.getPaginatedWatchlist(userId, page, (err, data) => {
+        if (err) return next(err);
+
+        const model = { 
+            title: `Favoriete Films (Pagina ${page})`, 
+            movies: data.movies,
+            pagination: data.pagination,
+            baseUrl: '/users/watchlist' // BaseUrl voor de paginatie links
+        };
+        res.render('movies', model); 
+    });
+}
+
+function addFavorite(req, res, next) {
+    if (!req.session.user) return res.redirect('/login');
+    const userId = req.session.user.user_id;
+    const filmId = req.body.filmId;
+    userService.addMovieToWatchlist(userId, filmId, (err) => {
+        if (err) return next(err);
+        res.redirect('back'); // Stuurt gebruiker terug naar vorige pagina
+    });
+}
+
+function removeFavorite(req, res, next) {
+    if (!req.session.user) return res.redirect('/login');
+    const userId = req.session.user.user_id;
+    const filmId = req.body.filmId;
+    userService.removeMovieFromWatchlist(userId, filmId, (err) => {
+        if (err) return next(err);
+        res.redirect('back'); // Stuurt gebruiker terug naar vorige pagina
+    });
+}
+
+
+module.exports = { 
+    showRegisterForm, 
+    registerUser, 
+    getUser, 
+    showWatchlist,
+    addFavorite,
+    removeFavorite
+ };

@@ -44,9 +44,63 @@ function createUser(userData, callback) {
         callback(null, results.insertId);
     });
 }
+function getFavoriteMovies(userId, limit, offset, callback) {
+    const query = `
+        SELECT f.film_id, f.title, f.description, f.release_year 
+        FROM film f
+        JOIN user_favorites uf ON f.film_id = uf.film_id
+        WHERE uf.user_id = ?
+        ORDER BY uf.created_at DESC
+        LIMIT ? OFFSET ?
+    `;
+    pool.query(query, [userId, limit, offset], (error, results) => {
+        if (error) return callback(error, null);
+        callback(null, results);
+    });
+}
+
+function isMovieInFavorites(userId, filmId, callback) {
+    const query = 'SELECT * FROM user_favorites WHERE user_id = ? AND film_id = ?';
+    pool.query(query, [userId, filmId], (error, results) => {
+        if (error) return callback(error, null);
+        callback(null, results.length > 0);
+    });
+}
+
+function addFavoriteMovie(userId, filmId, callback) {
+    const query = 'INSERT INTO user_favorites (user_id, film_id) VALUES (?, ?)';
+    pool.query(query, [userId, filmId], (error, results) => {
+        if (error) return callback(error);
+        callback(null, results);
+    });
+}
+
+function removeFavoriteMovie(userId, filmId, callback) {
+    const query = 'DELETE FROM user_favorites WHERE user_id = ? AND film_id = ?';
+    pool.query(query, [userId, filmId], (error, results) => {
+        if (error) return callback(error);
+        callback(null, results);
+    });
+}
+
+function countFavoriteMovies(userId, callback) {
+    const query = 'SELECT COUNT(*) AS total FROM user_favorites WHERE user_id = ?';
+    pool.query(query, [userId], (error, results) => {
+        if (error) {
+            return callback(error, null);
+        }
+        callback(null, results[0].total);
+    });
+}
+
 
 module.exports = { 
     findUserById,
     findUserByEmail,
-    createUser
+    createUser,
+    getFavoriteMovies,
+    isMovieInFavorites,
+    addFavoriteMovie,
+    removeFavoriteMovie,
+    countFavoriteMovies
 };
