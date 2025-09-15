@@ -64,32 +64,29 @@ function showWatchlist(req, res, next) {
 }
 
 function addFavorite(req, res, next) {
-    if (!req.session.customer) {
-        return res.redirect('/login');
-    }
+    if (!req.session.customer) return res.redirect('/login');
     const customerId = req.session.customer.customer_id;
     const filmId = req.body.filmId;
     customerService.addMovieToWatchlist(customerId, filmId, (err) => {
-        if (err) {
-            return next(err);
-        }
-        res.redirect('back');
+        if (err) return next(err);
+        // Gebruik de nieuwe, aanbevolen methode voor redirect
+        const backURL = req.header('Referer') || '/';
+        res.redirect(backURL);
     });
 }
 
 function removeFavorite(req, res, next) {
-    if (!req.session.customer) {
-        return res.redirect('/login');
-    }
+    if (!req.session.customer) return res.redirect('/login');
     const customerId = req.session.customer.customer_id;
     const filmId = req.body.filmId;
     customerService.removeMovieFromWatchlist(customerId, filmId, (err) => {
-        if (err) {
-            return next(err);
-        }
-        res.redirect('back');
+        if (err) return next(err);
+        // Gebruik de nieuwe, aanbevolen methode voor redirect
+        const backURL = req.header('Referer') || '/';
+        res.redirect(backURL);
     });
 }
+
 
 
 module.exports = { 
