@@ -1,6 +1,17 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  //- pre #{error.stack}
+  // Deze container zorgt voor de centrering
+  .error-page-container
+    .card.text-center(style="width: 32rem;")
+      // De headertekst is nu groter (h4) en heeft meer verticale ruimte (py-3)
+      .card-header.bg-danger.text-white.py-3
+        h4.mb-0 Er is iets misgegaan
+      .card-body.pb-4
+        // Extra marge aan de bovenkant (mt-3) om de content omlaag te duwen
+        h1.card-title.mt-3= error.status
+        h4.card-subtitle.mb-2.text-muted= message
+        p.card-text.mt-4.
+          De pagina die je zoekt kan niet worden gevonden 
+          of er is een onverwachte fout opgetreden.
+        a.btn.btn-primary.mt-3(href="/", role="button") Terug naar de homepagina

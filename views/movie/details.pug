@@ -1,41 +1,48 @@
 extends ../layout
 
 block content
-  // Controleer of er een filmobject is meegegeven
   if movie
     .card
       .card-header
-        // De titel van de film in de header van de kaart
-        h1.mb-0= movie.title
-          if customer 
+        .d-flex.justify-content-between.align-items-center
+          h1.mb-0= movie.title
+          if customer
             if isFavorite
-              // Formulier om uit favorieten te verwijderen
               form(method="POST", action="/customers/watchlist/remove")
                 input(type="hidden", name="filmId", value=movie.film_id)
                 button.btn.btn-danger(type="submit")
                   i.bi.bi-heart-fill 
                   |  Verwijder uit Kijklijst
             else
-              // Formulier om aan favorieten toe te voegen
               form(method="POST", action="/customers/watchlist/add")
                 input(type="hidden", name="filmId", value=movie.film_id)
                 button.btn.btn-primary(type="submit")
                   i.bi.bi-heart
                   |  Voeg toe aan Kijklijst
+      
       .card-body
-        h5.card-title Beschrijving
-        p.card-text= movie.description
-      // Een lijst met extra details
-      ul.list-group.list-group-flush
-        li.list-group-item
-          strong Jaar van uitgave:
-          |  #{movie.release_year}
-        li.list-group-item
-          strong Speelduur:
-          |  #{movie.length} minuten
-        li.list-group-item
-          strong Beoordeling:
-          |  #{movie.rating}
+        // We gebruiken een Bootstrap 'row' om de layout op te delen
+        .row.g-4
+          // --- Linkerkolom: Afbeelding ---
+          // 'col-md-4' neemt 4 van de 12 kolommen in beslag op medium schermen en groter
+          .col-md-4
+            img.img-fluid.rounded(src="https://placehold.co/400x600/212529/ffffff?text=Film", alt="Filmposter")
+
+          // --- Rechterkolom: Tekst ---
+          // 'col-md-8' neemt de overige 8 van de 12 kolommen in beslag
+          .col-md-8
+            h5.card-title Beschrijving
+            p.card-text= movie.description
+            
+            ul.list-group.list-group-flush.mt-4
+              li.list-group-item
+                strong Jaar van uitgave:
+                |  #{movie.release_year}
+              li.list-group-item
+                strong Speelduur:
+                |  #{movie.length} minuten
+              li.list-group-item
+                strong Beoordeling:
+                |  #{movie.rating}
   else
-    // Toon een melding als de film niet is gevonden
     .alert.alert-warning Film niet gevonden.

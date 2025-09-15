@@ -62,3 +62,11 @@
   /* Zorgt dat de kaart boven de andere kaarten uitsteekt */
   z-index: 10; 
 }
+
+.error-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Zorgt ervoor dat de container de resterende hoogte van de pagina vult */
+  flex-grow: 1; 
+}
