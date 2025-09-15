@@ -18,18 +18,18 @@ aside#sidebarMenu.offcanvas.offcanvas-start.text-bg-dark.p-3(tabindex="-1")
         li.nav-item
           a.nav-link.text-white(href="/movies") Films
         //- --- CONDITIONELE LINKS ---
-        if user
+        if customer
           //- Als er een gebruiker is ingelogd
           li.nav-item.mt-3.pt-3.border-top
           li.nav-item
-            a.nav-link.text-white(href="/users/watchlist") Favoriete Films
-            span.nav-link.text-secondary Welkom, #{user.first_name}!
+            a.nav-link.text-white(href="/customers/watchlist") Favoriete Films
+            span.nav-link.text-secondary Welkom, #{customer.first_name}!
           li.nav-item
             form(method="POST", action="/logout")
               button.nav-link.text-white(type="submit", style="background:none; border:none; text-align: left; width: 100%;") Uitloggen
         else
           //- Als er niemand is ingelogd
           li.nav-item
-            a.nav-link.text-white(href="/users/register") Registreren
+            a.nav-link.text-white(href="/customers/register") Registreren
           li.nav-item
             a.nav-link.text-white(href="/login") Inloggen

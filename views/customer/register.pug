@@ -2,7 +2,10 @@ extends ../layout
 
 block content
   h1.mb-4= title
-  form(method="POST", action="/users/register")
+  //- Toon de foutmelding als die er is
+  if error
+    .alert.alert-danger= error
+  form(method="POST", action="/customers/register")
     .mb-3
       label.form-label(for="firstName") Voornaam
       input.form-control(type="text", id="firstName", name="firstName", required)

@@ -8,7 +8,7 @@ const session = require('express-session'); // Importeer express-session
 const logger = require("./src/util/logger");
 
 const indexRouter = require("./src/routes/index");
-const usersRouter = require("./src/routes/users");
+const customerRouter = require("./src/routes/customer.routes");
 const movieRouter = require("./src/routes/movie.routes");
 const authRouter = require("./src/routes/auth.routes"); // Nieuwe auth router
 
@@ -32,13 +32,13 @@ app.use(session({
 }));
 
 app.use((req, res, next) => {
-    res.locals.user = req.session.user;
+    res.locals.customer = req.session.customer; 
     next();
 });
 
 app.use("/", indexRouter);
 app.use("/", authRouter); 
-app.use("/users", usersRouter);
+app.use("/customers", customerRouter); 
 app.use("/movies", movieRouter);
 
 

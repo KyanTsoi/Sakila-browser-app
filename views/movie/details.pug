@@ -7,17 +7,17 @@ block content
       .card-header
         // De titel van de film in de header van de kaart
         h1.mb-0= movie.title
-          if user 
+          if customer 
             if isFavorite
               // Formulier om uit favorieten te verwijderen
-              form(method="POST", action="/users/watchlist/remove")
+              form(method="POST", action="/customers/watchlist/remove")
                 input(type="hidden", name="filmId", value=movie.film_id)
                 button.btn.btn-danger(type="submit")
                   i.bi.bi-heart-fill 
                   |  Verwijder uit Kijklijst
             else
               // Formulier om aan favorieten toe te voegen
-              form(method="POST", action="/users/watchlist/add")
+              form(method="POST", action="/customers/watchlist/add")
                 input(type="hidden", name="filmId", value=movie.film_id)
                 button.btn.btn-primary(type="submit")
                   i.bi.bi-heart
