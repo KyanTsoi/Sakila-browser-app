@@ -70,3 +70,12 @@
   /* Zorgt ervoor dat de container de resterende hoogte van de pagina vult */
   flex-grow: 1; 
 }
+
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Zorgt ervoor dat de container de resterende hoogte van de pagina vult */
+  flex-grow: 1; 
+  min-height: 80vh;
+}
