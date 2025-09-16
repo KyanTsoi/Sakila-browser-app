@@ -26,7 +26,7 @@ aside#sidebarMenu.offcanvas.offcanvas-start.text-bg-dark.p-3(tabindex="-1")
             span.nav-link.text-secondary Welcome, #{customer.first_name}!
           li.nav-item
             form(method="POST", action="/logout")
-              button.nav-link.text-white(type="submit", style="background:none; border:none; text-align: left; width: 100%;") Uitloggen
+              button.nav-link.text-white(type="submit", style="background:none; border:none; text-align: left; width: 100%;") Logout
         else
           //- Als er niemand is ingelogd
           li.nav-item
