@@ -12,13 +12,13 @@ block content
                 input(type="hidden", name="filmId", value=movie.film_id)
                 button.btn.btn-danger(type="submit")
                   i.bi.bi-heart-fill 
-                  |  Verwijder uit Kijklijst
+                  |  Delete from Watchlist
             else
               form(method="POST", action="/customers/watchlist/add")
                 input(type="hidden", name="filmId", value=movie.film_id)
                 button.btn.btn-primary(type="submit")
                   i.bi.bi-heart
-                  |  Voeg toe aan Kijklijst
+                  |  Add to Watchlist
       
       .card-body
         // We gebruiken een Bootstrap 'row' om de layout op te delen
@@ -31,18 +31,18 @@ block content
           // --- Rechterkolom: Tekst ---
           // 'col-md-8' neemt de overige 8 van de 12 kolommen in beslag
           .col-md-8
-            h5.card-title Beschrijving
+            h5.card-title Movie description
             p.card-text= movie.description
             
             ul.list-group.list-group-flush.mt-4
               li.list-group-item
-                strong Jaar van uitgave:
+                strong Realease year:
                 |  #{movie.release_year}
               li.list-group-item
-                strong Speelduur:
-                |  #{movie.length} minuten
+                strong Movie length:
+                |  #{movie.length} minutes
               li.list-group-item
-                strong Beoordeling:
+                strong Rating:
                 |  #{movie.rating}
   else
-    .alert.alert-warning Film niet gevonden.
+    .alert.alert-warning Movie not found.
