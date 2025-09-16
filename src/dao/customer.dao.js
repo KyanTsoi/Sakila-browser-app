@@ -30,7 +30,7 @@ function createCustomer(customerData, callback) {
     pool.query(query, params, (error, results) => {
         if (error) {
             if (error.code === 'ER_DUP_ENTRY') {
-                return callback(new Error('Een account met dit e-mailadres bestaat al.'), null);
+                return callback(new Error('An account with this email already exists.'), null);
             }
             return callback(error, null);
         }

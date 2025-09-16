@@ -6,11 +6,11 @@ function getAllMovies(req, res, next) {
     const page = parseInt(req.query.page) || 1;
     movieService.getPaginatedMovies(page, (err, data) => {
         if (err) {
-            logger.error('Fout bij het ophalen van gepagineerde films:', err);
+            logger.error('Error fetching paginated movies:', err);
             return next(err);
         }
         const model = { 
-            title: `Films (Pagina ${page})`, 
+            title: `Movies (Page ${page})`, 
             movies: data.movies,
             pagination: data.pagination,
             baseUrl: '/movies'
@@ -24,11 +24,11 @@ function getMovieById(req, res, next) {
     const customerId = req.session.customer ? req.session.customer.customer_id : null;
     movieService.getMovieById(movieId, (err, movie) => {
         if (err) {
-            logger.error(`Fout bij ophalen film ${movieId}:`, err.message);
+            logger.error('Error fetching movie by ID:', err);
             return next(err);
         }
         if (!movie) {
-            return next({ status: 404, message: 'Film niet gevonden' });
+            return next({ status: 404, message: 'Movie not found' });
         }
         if (!customerId) {
             const model = { title: movie.title, movie: movie, isFavorite: false };

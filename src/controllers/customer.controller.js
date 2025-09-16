@@ -2,7 +2,7 @@ const customerService = require('../services/customer.service');
 const logger = require('../util/logger');
 
 function showRegisterForm(req, res) {
-    res.render("customer/register", { title: "Nieuwe Klant Registreren" });
+    res.render("customer/register", { title: "Registering new customer" });
 }
 
 function registerCustomer(req, res, next) {
@@ -10,9 +10,9 @@ function registerCustomer(req, res, next) {
         // Als er een fout is...
         if (err) {
             // Controleer of het de specifieke foutmelding is die we willen tonen
-            if (err.message.includes('bestaat al')) {
+            if (err.message.includes('already exists')) {
                 const model = {
-                    title: "Nieuwe Klant Registreren",
+                    title: "Registering new customer",
                     error: err.message,
                     // Stuur de ingevulde data terug, zodat de gebruiker het niet opnieuw hoeft in te vullen
                     formData: req.body 
@@ -32,10 +32,10 @@ function getCustomer(req, res, next) {
     const customerId = req.params.id;
     customerService.getCustomerById(customerId, (err, customer) => {
         if (err || !customer) {
-            return next({ status: 404, message: 'Klant niet gevonden' });
+            return next({ status: 404, message: 'customer not found' });
         }
         const model = {
-            title: `Details voor ${customer.first_name}`,
+            title: `Details for ${customer.first_name}`,
             customer: { id: customer.customer_id, name: `${customer.first_name} ${customer.last_name}` }
         };
         res.render("customer/details", model);
@@ -53,7 +53,7 @@ function showWatchlist(req, res, next) {
             return next(err);
         }
         const model = { 
-            title: `Favoriete Films (Pagina ${page})`, 
+            title: `Favorite Movies (Page ${page})`, 
             movies: data.movies,
             pagination: data.pagination,
             baseUrl: '/customers/watchlist'

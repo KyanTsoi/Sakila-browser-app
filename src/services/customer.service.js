@@ -23,7 +23,7 @@ function authenticateCustomer(email, password, callback) {
 
         // --- DEBUG LOG ---
         if (!customer) {
-            logger.debug(`[AUTH] Poging tot inloggen met onbekende email: ${email}`);
+            logger.debug(`[AUTH] No customer found with email: ${email}`);
             return callback(null, null);
         }
         // --- EINDE DEBUG LOG ---
@@ -31,8 +31,8 @@ function authenticateCustomer(email, password, callback) {
         bcrypt.compare(password, customer.password, (err, isMatch) => {
             if (err) return callback(err);
 
-            // --- DEBUG LOG ---
-            logger.debug(`[AUTH] Wachtwoordvergelijking voor ${email}: ${isMatch ? 'SUCCES' : 'MISLUKT'}`);
+            // --- DEBUG LOG ---\
+            logger.debug(`[AUTH] Customer found with email: ${email}`);
             // --- EINDE DEBUG LOG ---
 
             if (isMatch) {

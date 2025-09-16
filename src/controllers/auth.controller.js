@@ -1,7 +1,7 @@
 const customerService = require('../services/customer.service');
 
 function showLoginForm(req, res) {
-    res.render('auth/login', { title: 'Inloggen' });
+    res.render('auth/login', { title: 'Login' });
 }
 
 function loginUser(req, res, next) {
@@ -12,8 +12,9 @@ function loginUser(req, res, next) {
         }
         if (!customer) {
             const model = {
-                title: 'Inloggen',
-                error: 'Ongeldige e-mail of wachtwoord.'
+                title: 'Login',
+                error: 'Wrong login credentials, please try again.',    
+                email: email // Behoud het ingevoerde e-mailadres
             };
             return res.render('auth/login', model);
         }
@@ -28,7 +29,7 @@ function loginUser(req, res, next) {
 function logoutUser(req, res) {
     req.session.destroy(err => {
         if (err) {
-            console.error("Fout bij uitloggen:", err);
+            console.error("Error with logging in:", err);
         }
         res.redirect('/');
     });

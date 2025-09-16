@@ -6,7 +6,7 @@ const { json } = require('express');
 // Maak een connection pool aan. Een pool is efficiënter dan een losse connectie
 // omdat het verbindingen hergebruikt.
 
-logger.debug("Database connectie info:")
+logger.debug("Database connection info:")
 logger.debug({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
