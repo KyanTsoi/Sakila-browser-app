@@ -17,9 +17,8 @@ function findCustomerByEmail(email, callback) {
 }
 
 function createCustomer(customerData, callback) {
-    // Voorbeeld: we gebruiken vaste waarden voor store_id en address_id
-    // In een echte applicatie zou je dit via het formulier moeten vragen
-    const query = 'INSERT INTO customer (store_id, first_name, last_name, email, password, address_id) VALUES (?, ?, ?, ?, ?, ?)';
+    // De query is aangepast om 'create_date' mee te sturen
+    const query = 'INSERT INTO customer (store_id, first_name, last_name, email, password, address_id, create_date) VALUES (?, ?, ?, ?, ?, ?, NOW())';
     const params = [
         1, // vaste store_id
         customerData.firstName,

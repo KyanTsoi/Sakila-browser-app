@@ -4,3 +4,5 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  if customer 
+    p Welcome #{customer.first_name} #{customer.last_name}.

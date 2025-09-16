@@ -24,7 +24,7 @@ function registerCustomer(req, res, next) {
             return next(err);
         }
         // Als het succesvol was, stuur door naar de detailpagina
-        res.redirect(`/}`);
+        res.redirect(`/`);
     });
 }
 
@@ -42,7 +42,6 @@ function getCustomer(req, res, next) {
     });
 }
 
-// ... de rest van de functies (showWatchlist, addFavorite, etc.) blijven ongewijzigd ...
 function showWatchlist(req, res, next) {
     if (!req.session.customer) {
         return res.redirect('/login');
