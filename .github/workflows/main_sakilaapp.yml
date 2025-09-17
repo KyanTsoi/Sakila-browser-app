@@ -30,8 +30,8 @@ jobs:
           DB_PORT: ${{ secrets.DB_PORT }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_DATABASE: ${{ secrets.DB_DATABASE }}
-          TEST_USER_EMAIL: ${{ secrets.CYPRESS_TEST_USER }}
-          TEST_USER_PASSWORD: ${{ secrets.CYPRESS_TEST_PASSWORD }}
+          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
         run: |
           npm install
           npm run build --if-present
