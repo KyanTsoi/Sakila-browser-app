@@ -38,6 +38,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: transparent;
 }
 
 #main-content-wrapper main {
@@ -78,4 +79,14 @@
   /* Zorgt ervoor dat de container de resterende hoogte van de pagina vult */
   flex-grow: 1; 
   min-height: 80vh;
+}
+
+.input-group .form-control:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  z-index: 5; /* Zorgt dat de schaduw niet wordt overlapt door de knop */
+}
+.home-content-box {
+  background-color: rgba(248, 249, 250, 0.85); /* .bg-light kleur, maar dan 85% dekkend */
+  backdrop-filter: blur(5px); /* Optioneel: voegt een 'blur'-effect toe */
 }
