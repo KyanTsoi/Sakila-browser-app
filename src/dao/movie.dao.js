@@ -41,8 +41,39 @@ function findMovieById(id, callback) {
     });
 }
 
+function searchMovies(query, limit, offset, callback) {
+    const sqlQuery = 'SELECT film_id, title, description, release_year FROM film WHERE title LIKE ? ORDER BY release_year DESC LIMIT ? OFFSET ?';
+    // De '%' tekens zorgen ervoor dat we zoeken naar titels die de query bevatten.
+    const searchQuery = `%${query}%`; 
+
+    pool.query(sqlQuery, [searchQuery, limit, offset], (error, results) => {
+        if (error) {
+            return callback(error, null);
+        }
+        callback(null, results);
+    });
+}
+
+/**
+ * Telt het totale aantal films dat overeenkomt met een zoekopdracht.
+ */
+function countSearchedMovies(query, callback) {
+    const sqlQuery = 'SELECT COUNT(*) AS total FROM film WHERE title LIKE ?';
+    const searchQuery = `%${query}%`;
+
+    pool.query(sqlQuery, [searchQuery], (error, results) => {
+        if (error) {
+            return callback(error, null);
+        }
+        callback(null, results[0].total);
+    });
+}
+
+
 module.exports = {
     getMovies,
     countMovies,
-    findMovieById
+    findMovieById,
+    searchMovies,
+    countSearchedMovies
 };

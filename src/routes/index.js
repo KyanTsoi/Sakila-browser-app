@@ -9,4 +9,10 @@ router.get('/', function(req, res, next) {
   res.render(view, model);
 });
 
+router.get('/about', function(req, res, next) {
+  const model = { title: 'About this App' }
+  const view = 'about'
+  res.render(view, model);
+});
+
 module.exports = router;

@@ -4,7 +4,7 @@ if pagination && pagination.totalPages > 1
     ul.pagination.justify-content-center
       // Vorige knop
       li.page-item(class=(pagination.currentPage === 1 ? 'disabled' : ''))
-        a.page-link(href=`${baseUrl}?page=${pagination.currentPage - 1}`) Vorige
+        a.page-link(href=`${baseUrl}${baseUrl.includes('?') ? '&' : '?'}page=${pagination.currentPage - 1}`) Vorige
 
       // Paginanummers
       - let startPage = Math.max(1, pagination.currentPage - 2)
@@ -15,11 +15,11 @@ if pagination && pagination.totalPages > 1
 
       - for (let i = startPage; i <= endPage; i++)
         li.page-item(class=(i === pagination.currentPage ? 'active' : ''))
-          a.page-link(href=`${baseUrl}?page=${i}`)= i
+          a.page-link(href=`${baseUrl}${baseUrl.includes('?') ? '&' : '?'}page=${i}`)= i
           
       if endPage < pagination.totalPages
         li.page-item.disabled: a.page-link ...
 
       // Volgende knop
       li.page-item(class=(pagination.currentPage === pagination.totalPages ? 'disabled' : ''))
-        a.page-link(href=`${baseUrl}?page=${pagination.currentPage + 1}`) Volgende
+        a.page-link(href=`${baseUrl}${baseUrl.includes('?') ? '&' : '?'}page=${pagination.currentPage + 1}`) Volgende

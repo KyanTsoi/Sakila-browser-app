@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  .container
+    .row.justify-content-center
+      .col-md-8
+        .card.mt-4
+          .card-body
+            h1.card-title.mb-4= title
+            
+            //- HIER KUN JE JE EIGEN INFORMATIE TOEVOEGEN
+            //- Je kunt hier paragrafen (p), lijsten (ul, li), etc. gebruiken.
+            
+            p.lead.
+              Dit is de about-pagina voor de Sakila Movie Browser App. 
+              Je kunt deze tekst aanpassen met informatie over je project, 
+              het doel ervan, en wie eraan heeft meegewerkt.
+
+            h4.mt-4 Wat kun je hier vertellen?
+            ul
+              li De technologie die is gebruikt (Node.js, Express, Pug, etc.).
+              li Het doel van de applicatie.
+              li Een korte introductie van het team of de ontwikkelaar.
+
+            //- EINDE VAN DE SECTIE VOOR EIGEN INFORMATIE

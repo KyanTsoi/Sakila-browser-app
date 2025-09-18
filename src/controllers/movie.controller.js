@@ -4,20 +4,32 @@ const logger = require("../util/logger");
 
 function getAllMovies(req, res, next) {
     const page = parseInt(req.query.page) || 1;
-    movieService.getPaginatedMovies(page, (err, data) => {
+    const query = req.query.query || null;
+
+    movieService.getPaginatedMovies(page, query, (err, data) => {
         if (err) {
             logger.error('Error fetching paginated movies:', err);
             return next(err);
         }
+        
+        const title = query 
+            ? `Search results for "${query}" (Page ${page})` 
+            : `Movies (Page ${page})`;
+
+        // Bepaal de basis-URL voor de paginering
+        const baseUrl = query ? `/movies?query=${encodeURIComponent(query)}` : '/movies';
+
         const model = { 
-            title: `Movies (Page ${page})`, 
+            title: title, 
             movies: data.movies,
             pagination: data.pagination,
-            baseUrl: '/movies'
+            query: query,
+            baseUrl: baseUrl // Geef de baseUrl door aan de view
         };
         res.render("movies", model);
     });
 }
+
 
 function getMovieById(req, res, next) {
     const movieId = req.params.id;
