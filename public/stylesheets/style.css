@@ -49,10 +49,10 @@ footer.bg-light {
 }
 
 
-.movie-card-link {
-  display: block; /* Zorgt ervoor dat de link het hele 'col' blok vult */
-  /* Zorgt voor een soepele overgang (animatie) */
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+.movie-card-link:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Meer diepte */
+  z-index: 10;
 }
 
 /* Het effect dat wordt toegepast als je eroverheen zweeft */
@@ -79,8 +79,7 @@ footer.bg-light {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Zorgt ervoor dat de container de resterende hoogte van de pagina vult */
-  flex-grow: 1; 
+  flex-grow: 1;
   min-height: 80vh;
 }
 
@@ -90,6 +89,10 @@ footer.bg-light {
   z-index: 5; /* Zorgt dat de schaduw niet wordt overlapt door de knop */
 }
 .home-content-box {
-  background-color: rgba(248, 249, 250, 0.85); /* .bg-light kleur, maar dan 85% dekkend */
-  backdrop-filter: blur(5px); /* Optioneel: voegt een 'blur'-effect toe */
+  background-color: rgba(248, 249, 250, 0.85); /* Licht dekkende achtergrond */
+  backdrop-filter: blur(8px); /* Blur-effect voor de 'frost' look */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: .5rem;
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
