@@ -32,17 +32,20 @@
 
 /* De hoofdcontent wrapper */
 #main-content-wrapper {
-  /* Geef een linkermarge om ruimte te maken voor de smalle balk */
   margin-left: var(--sidebar-stub-width);
   width: calc(100% - var(--sidebar-stub-width));
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: transparent;
+  background: linear-gradient(to bottom, #676767 0%, #ffffff 80%);
 }
 
 #main-content-wrapper main {
   flex-grow: 1;
+}
+
+footer.bg-light {
+    border-top: 1px solid #dee2e6; /* Bootstrap's standaard randkleur */
 }
 
 
