@@ -1,6 +1,9 @@
 const customerService = require('../services/customer.service');
 
 function showLoginForm(req, res) {
+    if (req.session.customer) {
+        return res.redirect('/');
+    }
     res.render('auth/login', { title: 'Login' });
 }
 
