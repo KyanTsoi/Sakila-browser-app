@@ -1,23 +1,24 @@
 extends ../layout
 
 block content
-  .row.justify-content-center
+  .auth-form-wrapper.row.justify-content-center.align-items-center.flex-grow-1
     .col-md-6.col-lg-4
-      h1.mb-4= title
-      //- Toon de foutmelding als die er is
-      if error
-        .alert.alert-danger= error
-      form(method="POST", action="/customers/register")
-        .mb-3
-          label.form-label(for="firstName") First name
-          input.form-control(type="text", id="firstName", name="firstName", required)
-        .mb-3
-          label.form-label(for="lastName") Last name
-          input.form-control(type="text", id="lastName" name="lastName", required)
-        .mb-3
-          label.form-label(for="email") E-mailaddress
-          input.form-control(type="email", id="email", name="email", required)
-        .mb-3
-          label.form-label(for="password") Password
-          input.form-control(type="password", id="password", name="password", required)
-        button.btn.btn-primary(type="submit") Register
+      .home-content-box
+        h1.mb-3= title
+        //- Toon de foutmelding als die er is
+        if error
+          .alert.alert-danger= error
+        form(method="POST", action="/customers/register")
+          .mb-3
+            label.form-label(for="firstName") First name
+            input.form-control(type="text", id="firstName", name="firstName", required)
+          .mb-3
+            label.form-label(for="lastName") Last name
+            input.form-control(type="text", id="lastName" name="lastName", required)
+          .mb-3
+            label.form-label(for="email") E-mailaddress
+            input.form-control(type="email", id="email", name="email", required)
+          .mb-3
+            label.form-label(for="password") Password
+            input.form-control(type="password", id="password", name="password", required)
+          button.btn.btn-primary(type="submit") Register
