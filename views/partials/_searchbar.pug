@@ -1,4 +1,4 @@
-form.mb-4(method="GET", action="/movies")
+form.mb-4.search-form(method="GET", action="/movies")
   .input-group.input-group-lg
     input.form-control(type="text", name="query", placeholder="Search for a movie title...", value=query || '', aria-label="Search for a movie")
     button.btn.btn-primary(type="submit", aria-label="Search")

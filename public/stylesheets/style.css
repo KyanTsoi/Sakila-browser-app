@@ -1,80 +1,182 @@
+/* =============================================
+   1. GLOBALE STIJLEN & KLEURVARIABELEN
+   ============================================= */
 :root {
-  --sidebar-stub-width: 70px; /* Breedte van de smalle balk */
-  --sidebar-full-width: 250px; /* Breedte van de uitgeklapte zijbalk */
+  /* Kleurenpalet */
+  --color-dark: #212529; /* Donkergrijs/Zwart, basis voor donkere elementen */
+  --color-light: #f8f9fa; /* Zeer lichtgrijs, voor achtergronden */
+  --color-white: #ffffff;
+  --color-primary-accent: #3d454d; /* Een iets lichtere donkergrijze tint voor accenten */
+  --color-focus-glow: rgba(82, 88, 94, 0.5); /* Gloed voor focus-elementen */
+  
+  /* Layout Variabelen */
+  --sidebar-stub-width: 70px;
+  --sidebar-full-width: 250px;
 }
 
-/* De smalle, permanente balk aan de linkerkant */
-.sidebar-stub {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: var(--sidebar-stub-width);
-  height: 100%;
-  background-color: #212529; /* Bootstrap's 'bg-dark' kleur */
-  z-index: 1000;
-}
-
-/* De hamburger-knop, gepositioneerd binnen de smalle balk */
-#sidebar-toggle-button {
-  position: fixed;
-  top: 1rem;
-  left: 1.25rem;
-  z-index: 1050; /* Zorg dat hij boven de offcanvas-backdrop verschijnt */
-  font-size: 1.5rem;
-  color: white;
-  transition: opacity 0.35s ease;
-}
-
-/* De offcanvas zijbalk zelf */
-#sidebarMenu.offcanvas {
-  width: var(--sidebar-full-width);
-}
-
-/* De hoofdcontent wrapper */
+/* =============================================
+   2. ALGEMENE LAYOUT
+   ============================================= */
+/* Hoofdcontent Wrapper */
 #main-content-wrapper {
   margin-left: var(--sidebar-stub-width);
   width: calc(100% - var(--sidebar-stub-width));
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to bottom, #676767 0%, #ffffff 80%);
+  background: linear-gradient(to bottom, #4a525a 0%, var(--color-light) 80%);
 }
 
 #main-content-wrapper main {
   flex-grow: 1;
 }
 
+/* Footer */
 footer.bg-light {
-    border-top: 1px solid #dee2e6; /* Bootstrap's standaard randkleur */
+  border-top: 1px solid #dee2e6;  
+  background-color: var(--color-dark) !important; /* Maakt de achtergrond donker */
+  color: var(--color-light); /* Maakt de tekst licht */
 }
 
+/* Algemene Paginatitel */
+main h1.mb-4 {
+  color: var(--color-white);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid var(--color-white);
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+/* =============================================
+   3. ZIJBALK (SIDEBAR)
+   ============================================= */
+.sidebar-stub {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-stub-width);
+  height: 100%;
+  background-color: var(--color-dark);
+  z-index: 1000;
+}
+
+#sidebar-toggle-button {
+  position: fixed;
+  top: 1rem;
+  left: 1.25rem;
+  z-index: 1050;
+  font-size: 1.5rem;
+  color: var(--color-white);
+  transition: opacity 0.35s ease;
+}
+
+#sidebarMenu.offcanvas {
+  width: var(--sidebar-full-width);
+}
+
+/* =============================================
+   4. COMPONENTEN
+   ============================================= */
+
+/* --- Filmkaarten --- */
+.movie-card-link {
+  display: block;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border-radius: .25rem;
+  overflow: hidden;
+  border: 0px solid var(--color-white);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
 
 .movie-card-link:hover {
   transform: scale(1.05);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Meer diepte */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
   z-index: 10;
 }
 
-/* Het effect dat wordt toegepast als je eroverheen zweeft */
-.movie-card-link:hover {
-  /* Maak de kaart iets groter */
-  transform: scale(1.05);
-  
-  /* Voeg een subtiele schaduw toe voor een 'lift'-effect */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  
-  /* Zorgt dat de kaart boven de andere kaarten uitsteekt */
-  z-index: 10; 
+.movie-card-img {
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
 }
 
-.error-page-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* Zorgt ervoor dat de container de resterende hoogte van de pagina vult */
-  flex-grow: 1; 
+.movie-card-link .card-body {
+  position: relative;
+  color: var(--color-white);
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%);
+  margin-top: -60px;
+  padding-top: 20px;
+  transition: margin-top 0.2s ease-in-out;
 }
 
+.movie-card-link:hover .card-body {
+  margin-top: -60px;
+}
+
+.movie-card-link .card-title {
+  font-size: 1rem;
+}
+
+/* --- Knoppen (Buttons) --- */
+.btn.btn-primary {
+  background-color: var(--color-dark);
+  border-color: var(--color-dark);
+  transition: all 0.15s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn.btn-primary:hover {
+  background-color: var(--color-primary-accent);
+  border-color: var(--color-primary-accent);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn.btn-primary:active {
+  background-color: #000 !important;
+  border-color: #000 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4) inset;
+  transform: translateY(1px);
+}
+
+/* --- Paginering (Pagination) --- */
+.pagination .page-item.active .page-link {
+  background-color: var(--color-dark);
+  border-color: var(--color-dark);
+  color: var(--color-white);
+  z-index: 2;
+}
+
+.pagination .page-link {
+  color: var(--color-dark);
+}
+
+.pagination .page-link:hover {
+  background-color: #e9ecef;
+  color: #000;
+}
+
+.pagination .page-link:focus {
+  box-shadow: 0 0 0 0.25rem var(--color-focus-glow);
+}
+
+/* --- Zoekbalk --- */
+.search-form .input-group {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: .375rem;
+  overflow: hidden;
+}
+
+.input-group .form-control:focus {
+  border-color: var(--color-dark) !important;
+  box-shadow: 0 0 0 0.25rem var(--color-focus-glow) !important;
+  z-index: 5;
+}
+
+/* =============================================
+   5. PAGINA-SPECIFIEKE STIJLEN
+   ============================================= */
+
+/* --- Homepagina --- */
 .home-container {
   display: flex;
   justify-content: center;
@@ -83,16 +185,19 @@ footer.bg-light {
   min-height: 80vh;
 }
 
-.input-group .form-control:focus {
-  border-color: #86b7fe;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-  z-index: 5; /* Zorgt dat de schaduw niet wordt overlapt door de knop */
-}
 .home-content-box {
-  background-color: rgba(248, 249, 250, 0.85); /* Licht dekkende achtergrond */
-  backdrop-filter: blur(8px); /* Blur-effect voor de 'frost' look */
+  background-color: rgba(248, 249, 250, 0.85);
+  backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: .5rem;
   padding: 2rem;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Foutpagina (Error Page) --- */
+.error-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
 }
