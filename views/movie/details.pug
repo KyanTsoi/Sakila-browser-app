@@ -44,5 +44,10 @@ block content
               li.list-group-item
                 strong Rating:
                 |  #{movie.rating}
+              if movie.category_name
+                li.list-group-item
+                  strong Genre:
+                  | 
+                  | #{movie.category_name}
   else
     .alert.alert-warning Movie not found.

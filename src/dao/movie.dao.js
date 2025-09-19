@@ -30,7 +30,12 @@ function countMovies(callback) {
 }
 
 function findMovieById(id, callback) {
-    const query = 'SELECT * FROM film WHERE film_id = ?';
+    const query = `
+        SELECT f.*, c.name AS category_name 
+        FROM film f
+        JOIN film_category fc ON f.film_id = fc.film_id
+        JOIN category c ON fc.category_id = c.category_id
+        WHERE f.film_id = ?`;
 
     pool.query(query, [id], (error, results) => {
         if (error) {
