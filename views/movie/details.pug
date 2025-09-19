@@ -1,6 +1,10 @@
 extends ../layout
 
 block content
+  if backUrl
+    a.btn.btn-outline-light.mb-3(href=backUrl)
+      i.bi.bi-arrow-left
+      |  Terug
   if movie
     .card
       .card-header
@@ -49,5 +53,18 @@ block content
                   strong Genre:
                   | 
                   | #{movie.category_name}
+
+        .align-items-center
+          if relatedMovies && relatedMovies.length > 0
+            hr.my-4
+            h3.mb-4 Related Movies
+            .row.row-cols-1.row-cols-sm-2.row-cols-md-4.row-cols-lg-5.g-4
+              each r_movie in relatedMovies
+                .col
+                  a.text-decoration-none(href=`/movies/${r_movie.film_id}`)
+                    .card.h-100.text-dark.movie-card-link
+                      img.card-img-top.movie-card-img(src="https://placehold.co/200x300/212529/ffffff?text=Film", alt="Filmposter")
+                      .card-body
+                        h5.card-title= r_movie.title
   else
     .alert.alert-warning Movie not found.

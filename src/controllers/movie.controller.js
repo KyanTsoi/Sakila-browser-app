@@ -34,21 +34,40 @@ function getAllMovies(req, res, next) {
 function getMovieById(req, res, next) {
     const movieId = req.params.id;
     const customerId = req.session.customer ? req.session.customer.customer_id : null;
-    movieService.getMovieById(movieId, (err, movie) => {
+    const backUrl = req.header('Referer') || '/movies';
+    // Service stuurt nu een object { movie, relatedMovies }
+    movieService.getMovieById(movieId, (err, data) => {
         if (err) {
             logger.error('Error fetching movie by ID:', err);
             return next(err);
         }
-        if (!movie) {
+        if (!data || !data.movie) {
             return next({ status: 404, message: 'Movie not found' });
         }
+        
+        // Haal de data uit het object
+        const { movie, relatedMovies } = data;
+
         if (!customerId) {
-            const model = { title: movie.title, movie: movie, isFavorite: false };
+            const model = { 
+                title: movie.title, 
+                movie: movie, 
+                isFavorite: false,
+                relatedMovies: relatedMovies,
+                backUrl: backUrl
+            };
             return res.render("movie/details", model);
         }
+
         customerService.checkIfMovieIsFavorite(customerId, movieId, (err, isFavorite) => {
             if (err) return next(err);
-            const model = { title: movie.title, movie: movie, isFavorite: isFavorite };
+            const model = { 
+                title: movie.title, 
+                movie: movie, 
+                isFavorite: isFavorite,
+                relatedMovies: relatedMovies,
+                backUrl: backUrl
+            };
             res.render("movie/details", model);
         });
     });

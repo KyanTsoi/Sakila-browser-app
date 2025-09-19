@@ -48,10 +48,18 @@ function getPaginatedMovies(page, query, callback) {
 
 function getMovieById(id, callback) {
     movieDAO.findMovieById(id, (err, movie) => {
-        if (err) {
+        if (err || !movie) {
             return callback(err, null);
         }
-        callback(null, movie);
+        movieDAO.findRelatedMovies(movie.category_id, movie.film_id, (relatedErr, relatedMovies) => {
+            if (relatedErr) {
+                logger.error('Error fetching related movies:', relatedErr);
+                return callback(null, { movie: movie, relatedMovies: [] });
+            }
+            
+            // 3. Stuur beide resultaten terug in één object
+            callback(null, { movie: movie, relatedMovies: relatedMovies });
+        });
     });
 }
 

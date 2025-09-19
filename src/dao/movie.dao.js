@@ -31,7 +31,7 @@ function countMovies(callback) {
 
 function findMovieById(id, callback) {
     const query = `
-        SELECT f.*, c.name AS category_name 
+        SELECT f.*, c.name AS category_name, c.category_id
         FROM film f
         JOIN film_category fc ON f.film_id = fc.film_id
         JOIN category c ON fc.category_id = c.category_id
@@ -74,11 +74,28 @@ function countSearchedMovies(query, callback) {
     });
 }
 
+function findRelatedMovies(categoryId, currentFilmId, callback) {
+    const query = `
+        SELECT f.film_id, f.title
+        FROM film f
+        JOIN film_category fc ON f.film_id = fc.film_id
+        WHERE fc.category_id = ? AND f.film_id != ?
+        ORDER BY RAND()
+        LIMIT 5`;
+
+    pool.query(query, [categoryId, currentFilmId], (error, results) => {
+        if (error) {
+            return callback(error, null);
+        }
+        callback(null, results);
+    });
+}
 
 module.exports = {
     getMovies,
     countMovies,
     findMovieById,
     searchMovies,
-    countSearchedMovies
+    countSearchedMovies,
+    findRelatedMovies
 };
