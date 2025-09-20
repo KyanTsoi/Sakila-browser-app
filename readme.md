@@ -4,7 +4,11 @@ Welkom bij de Sakila Movie Browser! Dit is een webapplicatie, gebouwd met Node.j
 
 De applicatie is opgezet volgens de MVC-architectuur en maakt gebruik van server-side rendering met de Pug template engine.
 
-## ✨ Features
+# Link naar website
+
+https://sakilaapp.azurewebsites.net/
+
+## Features
 
 - **Filmoverzicht**: Blader door de volledige filmcollectie met paginering.
 - **Zoekfunctionaliteit**: Zoek films op titel.
@@ -13,7 +17,7 @@ De applicatie is opgezet volgens de MVC-architectuur en maakt gebruik van server
 - **Persoonlijke Watchlist**: Ingelogde gebruikers kunnen films toevoegen aan en verwijderen uit hun persoonlijke watchlist.
 - **Responsive Design**: De interface is gebouwd met Bootstrap 5 en is volledig responsive voor gebruik op verschillende apparaten.
 
-## 🛠️ Technologie Stack
+## Technologie Stack
 
 ### Backend
 
@@ -35,7 +39,7 @@ De applicatie is opgezet volgens de MVC-architectuur en maakt gebruik van server
 - **CI/CD**: Geautomatiseerde build, en deployment via GitHub Actions.
 - **Hosting**: De applicatie wordt gedeployed naar Microsoft Azure.
 
-## 📁 Projectstructuur
+## Projectstructuur
 
 Het project volgt een Model-View-Controller (MVC) architectuur om de code georganiseerd en onderhoudbaar te houden:
 
