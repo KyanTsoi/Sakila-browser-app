@@ -65,3 +65,30 @@ block content
               li Gegeven dat ik ingelogd ben op een filmdetailpagina, dan zie ik een knop om de film aan mijn watchlist toe te voegen.
               li Gegeven dat een film al op mijn watchlist staat, dan zie ik een knop om de film te verwijderen.
               li Gegeven dat ik ingelogd ben, dan kan ik via het menu naar een overzichtspagina van mijn watchlist navigeren.
+    
+    .row.justify-content-center.mt-4
+      .col-md-10
+        .card
+          .card-header
+            h2 Wireframes
+          .card-body
+            p Hieronder staan de wireframes die als visuele blauwdruk voor de applicatie hebben gediend.
+            -
+              const wireframes = [
+                { file: 'Homepage.png', description: 'Wireframe voor de Homepagina', explanation: 'Het ontwerp van de homepagina focust op een visuele introductie met een duidelijke call-to-action knop om de films te bekijken.' },
+                { file: 'Movies.png', description: 'Wireframe voor het Filmoverzicht', explanation: 'Een overzichtelijke grid-layout toont de filmcollectie. De prominente zoekbalk en paginering bovenaan en onderaan maken het navigeren door een grote hoeveelheid films eenvoudig en intuïtief.' },
+                { file: 'Movie Specific.png', description: 'Wireframe voor de Film Detailpagina', explanation: 'Deze pagina bundelt alle belangrijke informatie over één film. De toevoeging van "Gerelateerde Films" stimuleert verdere verkenning van de collectie binnen hetzelfde genre.' },
+                { file: 'Login.png', description: 'Wireframe voor de Loginpagina', explanation: 'Een minimalistisch en afleidingsvrij ontwerp voor het inlogformulier. Het ontwerp focust puur op de taak om de gebruiker snel toegang te geven tot zijn of haar account.' },
+                { file: 'Register.png', description: 'Wireframe voor de Registratiepagina', explanation: 'Het registratieformulier is ontworpen om helder en eenvoudig te zijn, waardoor het voor nieuwe gebruikers laagdrempelig is om een account aan te maken.' },
+                { file: 'Favorite movies.png', description: 'Wireframe voor de Watchlistpagina', explanation: 'Dit is de persoonlijke ruimte van de gebruiker. Het ontwerp is bewust simpel gehouden, met de focus op de films die de gebruiker zelf heeft toegevoegd aan de watchlist, dit hergebruikt de pagina formaat van de movies pagina.' }
+              ]
+          .row.g-4
+            each frame in wireframes
+              .col-lg-6
+                .card.h-100
+                  .card-header
+                    h5.mb-0= frame.title
+                  .card-body
+                    img.img-fluid.rounded.border.mb-3(src=`/images/wireframes/${frame.file}`, alt=frame.title)
+                    p.card-text= frame.explanation
+
