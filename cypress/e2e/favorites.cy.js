@@ -4,8 +4,8 @@ describe('Favorite Movies (Watchlist) Flow', () => {
   // Dit voorkomt dat we de inlogstappen in elke test moeten herhalen.
   beforeEach(() => {
     cy.visit('/login');
-    cy.get('#email').type(Cypress.env('test_user_email'));
-    cy.get('#password').type(Cypress.env('test_user_password'));
+    cy.get('#email').type(Cypress.env('TEST_USER_EMAIL'));
+    cy.get('#password').type(Cypress.env('TEST_USER_PASSWORD'));
     cy.get('button[type="submit"]').click();
     cy.url().should('not.include', '/login');
   });

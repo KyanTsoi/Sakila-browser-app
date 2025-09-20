@@ -3,23 +3,65 @@ extends layout
 block content
   .container
     .row.justify-content-center
-      .col-md-8
+      .col-md-10
         .card.mt-4
           .card-body
             h1.card-title.mb-3= title
             
-            //- HIER KUN JE JE EIGEN INFORMATIE TOEVOEGEN
-            //- Je kunt hier paragrafen (p), lijsten (ul, li), etc. gebruiken.
-            
             p.lead.
-              Dit is de about-pagina voor de Sakila Movie Browser App. 
-              Je kunt deze tekst aanpassen met informatie over je project, 
-              het doel ervan, en wie eraan heeft meegewerkt.
+              Dit deel van de applicatie is gemaakt om toe te lichten hoe ik 
+              de technologieën heb gebruikt en wat mijn doelstellingen waren.
 
-            h4.mt-4 Wat kun je hier vertellen?
+            h4.mt-4 Wat wordt er toegelicht?
             ul
-              li De technologie die is gebruikt (Node.js, Express, Pug, etc.).
-              li Het doel van de applicatie.
-              li Een korte introductie van het team of de ontwikkelaar.
+              li De user stories en acceptatiecriteria die als leidraad dienden voor de ontwikkeling.
+              li De wireframes die zijn gebruikt voor het visuele ontwerp.
 
-            //- EINDE VAN DE SECTIE VOOR EIGEN INFORMATIE
+
+    .row.justify-content-center.mt-4
+      .col-md-10
+        .card
+          .card-header
+            h2 User Stories & Acceptatiecriteria
+          .card-body
+            //- Story 1
+            h5.mt-3 Films Ontdekken
+            p.fst-italic Als filmliefhebber, wil ik door de filmcollectie kunnen bladeren, zodat ik nieuwe en interessante titels kan ontdekken.
+            h6 Acceptatiecriteria:
+            ul
+              li Gegeven dat ik op de filmoverzichtspagina ben, dan zie ik een lijst met films, opgedeeld in meerdere pagina's.
+              li Gegeven dat ik op de filmoverzichtspagina ben, dan kan ik navigeren naar de volgende en vorige pagina's.
+              li Gegeven dat ik op een film in de lijst klik, dan word ik naar de desbetreffende filmdetailpagina geleid.
+
+            hr.my-4
+
+            //- Story 2
+            h5 Specifieke Film Vinden
+            p.fst-italic Als filmliefhebber, wil ik op titel kunnen zoeken, zodat ik snel een specifieke film kan vinden.
+            h6 Acceptatiecriteria:
+            ul
+              li Gegeven dat ik een film wil zoeken, dan is er een duidelijke zoekbalk beschikbaar.
+              li Gegeven dat ik een titel zoek, dan krijg ik een lijst met films te zien die aan mijn zoekopdracht voldoen.
+              li Gegeven dat ik zoek naar een titel die niet bestaat, dan krijg ik een melding dat er geen films zijn gevonden.
+
+            hr.my-4
+
+            //- Story 3
+            h5 Accountbeheer
+            p.fst-italic Als nieuwe gebruiker, wil ik me kunnen registreren en inloggen, zodat ik persoonlijke functionaliteiten kan gebruiken.
+            h6 Acceptatiecriteria:
+            ul
+              li Gegeven dat ik geen account heb, dan kan ik via een registratieformulier een nieuw account aanmaken.
+              li Gegeven dat ik inlog met de juiste gegevens, dan zie ik een welkomstbericht en ben ik ingelogd.
+              li Gegeven dat ik ben ingelogd, dan kan ik via een knop weer uitloggen.
+
+            hr.my-4
+
+            //- Story 4
+            h5 Favorieten Bijhouden (Watchlist)
+            p.fst-italic Als ingelogde gebruiker, wil ik films kunnen toevoegen aan en verwijderen uit een persoonlijke watchlist.
+            h6 Acceptatiecriteria:
+            ul
+              li Gegeven dat ik ingelogd ben op een filmdetailpagina, dan zie ik een knop om de film aan mijn watchlist toe te voegen.
+              li Gegeven dat een film al op mijn watchlist staat, dan zie ik een knop om de film te verwijderen.
+              li Gegeven dat ik ingelogd ben, dan kan ik via het menu naar een overzichtspagina van mijn watchlist navigeren.
