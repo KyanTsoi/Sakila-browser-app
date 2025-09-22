@@ -7,24 +7,32 @@ function showRegisterForm(req, res) {
 
 function registerCustomer(req, res, next) {
     customerService.createCustomer(req.body, (err, newCustomerId) => {
-        // Als er een fout is...
         if (err) {
-            // Controleer of het de specifieke foutmelding is die we willen tonen
             if (err.message.includes('already exists')) {
                 const model = {
                     title: "Registering new customer",
                     error: err.message,
-                    // Stuur de ingevulde data terug, zodat de gebruiker het niet opnieuw hoeft in te vullen
                     formData: req.body 
                 };
-                // Toon het registratieformulier opnieuw met de foutmelding
                 return res.render('customer/register', model);
             }
-            // Voor alle andere, onverwachte fouten, ga naar de algemene foutpagina
             return next(err);
         }
-        // Als het succesvol was, stuur door naar de detailpagina
-        res.redirect(`/`);
+
+         // Nadat de klant succesvol is aangemaakt, halen we de gegevens op
+        // zodat we deze in de sessie kunnen opslaan.
+        customerService.getCustomerById(newCustomerId, (err, newCustomer) => {
+            if (err || !newCustomer) {
+                // Als er iets misgaat, stuur de gebruiker voor de zekerheid naar de loginpagina.
+                return res.redirect('/login');
+            }
+            // Sla de nieuwe gebruiker op in de sessie
+            req.session.customer = newCustomer;
+            
+            // Stuur de nu ingelogde gebruiker door naar de homepagina.
+            res.redirect(`/`);
+        });
+        // ---- EINDE NIEUWE LOGICA ----
     });
 }
 
