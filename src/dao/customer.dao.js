@@ -38,6 +38,25 @@ function createCustomer(customerData, callback) {
     });
 }
 
+function updateCustomer(customerId, customerData, callback) {
+    const query = 'UPDATE customer SET first_name = ?, last_name = ?, email = ? WHERE customer_id = ?';
+    const params = [
+        customerData.firstName,
+        customerData.lastName,
+        customerData.email,
+        customerId
+    ];
+    pool.query(query, params, (error, results) => {
+        if (error) {
+            if (error.code === 'ER_DUP_ENTRY') {
+                return callback(new Error('An account with this email already exists.'), null);
+            }
+            return callback(error, null);
+        }
+        callback(null, results);
+    });
+}
+
 function countFavoriteMovies(customerId, callback) {
     const query = 'SELECT COUNT(*) AS total FROM customer_favorites WHERE customer_id = ?';
     pool.query(query, [customerId], (error, results) => {
@@ -89,6 +108,7 @@ module.exports = {
     findCustomerById,
     findCustomerByEmail,
     createCustomer,
+    updateCustomer,
     getFavoriteMovies,
     isMovieInFavorites,
     addFavoriteMovie,

@@ -86,7 +86,50 @@ function removeFavorite(req, res, next) {
     });
 }
 
+function showProfile(req, res, next) {
+    if (!req.session.customer) {
+        return res.redirect('/login');
+    }
+    const customerId = req.session.customer.customer_id;
+    customerService.getCustomerById(customerId, (err, customer) => {
+        if (err || !customer) {
+            return next({ status: 404, message: 'Customer not found' });
+        }
+        const model = {
+            title: 'My Profile',
+            customer: customer
+        };
+        res.render('customer/profile', model);
+    });
+}
 
+function updateProfile(req, res, next) {
+    if (!req.session.customer) {
+        return res.redirect('/login');
+    }
+    const customerId = req.session.customer.customer_id;
+    customerService.updateCustomer(customerId, req.body, (err, result) => {
+        if (err) {
+            if (err.message.includes('already exists')) {
+                // Herlaad de profielpagina met een foutmelding
+                return customerService.getCustomerById(customerId, (fetchErr, customer) => {
+                    const model = {
+                        title: 'My Profile',
+                        customer: customer,
+                        error: err.message
+                    };
+                    res.render('customer/profile', model);
+                });
+            }
+            return next(err);
+        }
+        // Update de sessie met de nieuwe gegevens
+        req.session.customer.first_name = req.body.firstName;
+        req.session.customer.last_name = req.body.lastName;
+        req.session.customer.email = req.body.email;
+        res.redirect('/customers/profile');
+    });
+}
 
 module.exports = { 
     showRegisterForm, 
@@ -94,5 +137,7 @@ module.exports = {
     getCustomer, 
     showWatchlist, 
     addFavorite, 
-    removeFavorite 
+    removeFavorite,
+    showProfile,
+    updateProfile
 };

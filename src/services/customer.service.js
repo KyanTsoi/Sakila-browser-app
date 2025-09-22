@@ -17,6 +17,10 @@ function createCustomer(customerData, callback) {
     });
 }
 
+function updateCustomer(customerId, customerData, callback) {
+    return customerDAO.updateCustomer(customerId, customerData, callback);
+}
+
 function authenticateCustomer(email, password, callback) {
     customerDAO.findCustomerByEmail(email, (err, customer) => {
         if (err) return callback(err);
@@ -78,6 +82,7 @@ module.exports = {
     getCustomerById,
     authenticateCustomer,
     createCustomer,
+    updateCustomer,
     getPaginatedWatchlist,
     checkIfMovieIsFavorite,
     addMovieToWatchlist,

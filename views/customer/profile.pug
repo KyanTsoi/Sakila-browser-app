@@ -1,0 +1,24 @@
+extends ../layout
+
+block content
+  .auth-form-wrapper.row.justify-content-center.align-items-center.flex-grow-1
+    .col-md-6.col-lg-5
+      .home-content-box
+        h1.mb-3= title
+
+        //- Toon een foutmelding als die er is
+        if error
+          .alert.alert-danger= error
+
+        form(method="POST", action="/customers/profile/update")
+          .mb-3
+            label.form-label(for="firstName") First name
+            input.form-control(type="text", id="firstName", name="firstName", value=customer.first_name, required)
+          .mb-3
+            label.form-label(for="lastName") Last name
+            input.form-control(type="text", id="lastName", name="lastName", value=customer.last_name, required)
+          .mb-3
+            label.form-label(for="email") E-mail address
+            input.form-control(type="email", id="email", name="email", value=customer.email, required)
+
+          button.btn.btn-primary(type="submit") Update Profile
