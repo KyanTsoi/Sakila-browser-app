@@ -1,3 +1,5 @@
+//- In views/customer/profile.pug
+
 extends ../layout
 
 block content
@@ -5,6 +7,10 @@ block content
     .col-md-6.col-lg-5
       .home-content-box
         h1.mb-3= title
+
+        //- Toon een succesmelding als die er is
+        if success
+          .alert.alert-success= success
 
         //- Toon een foutmelding als die er is
         if error

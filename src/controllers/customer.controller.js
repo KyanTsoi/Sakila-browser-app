@@ -95,39 +95,71 @@ function showProfile(req, res, next) {
         if (err || !customer) {
             return next({ status: 404, message: 'Customer not found' });
         }
+
+        // Haal eventuele succes- of foutberichten op uit de sessie
+        const successMessage = req.session.success_message;
+        const errorMessage = req.session.error_message;
+
+        // Verwijder de berichten direct, zodat ze maar één keer worden getoond
+        delete req.session.success_message;
+        delete req.session.error_message;
+
         const model = {
             title: 'My Profile',
-            customer: customer
+            customer: customer,
+            success: successMessage,
+            error: errorMessage
         };
         res.render('customer/profile', model);
     });
 }
 
+
 function updateProfile(req, res, next) {
     if (!req.session.customer) {
         return res.redirect('/login');
     }
+
     const customerId = req.session.customer.customer_id;
-    customerService.updateCustomer(customerId, req.body, (err, result) => {
-        if (err) {
-            if (err.message.includes('already exists')) {
-                // Herlaad de profielpagina met een foutmelding
-                return customerService.getCustomerById(customerId, (fetchErr, customer) => {
-                    const model = {
-                        title: 'My Profile',
-                        customer: customer,
-                        error: err.message
-                    };
-                    res.render('customer/profile', model);
-                });
+    const customerData = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email
+    };
+
+    customerService.updateCustomer(customerId, customerData, (err, result) => {
+        // Dit is het basis model dat we gebruiken om de pagina opnieuw te renderen.
+        // We vullen het formulier opnieuw met de zojuist ingevulde data.
+        const model = {
+            title: 'My Profile',
+            customer: {
+                customer_id: customerId,
+                first_name: customerData.firstName,
+                last_name: customerData.lastName,
+                email: customerData.email
             }
+        };
+
+        if (err) {
+            // Als de query mislukt (bv. e-mailadres bestaat al), voeg een foutmelding toe aan het model.
+            if (err.message.includes('already exists')) {
+                model.error = 'Failed to update: an account with this email already exists.';
+                return res.render('customer/profile', model);
+            }
+            // Voor andere, onverwachte fouten, ga naar de algemene foutafhandeling.
             return next(err);
         }
-        // Update de sessie met de nieuwe gegevens
-        req.session.customer.first_name = req.body.firstName;
-        req.session.customer.last_name = req.body.lastName;
-        req.session.customer.email = req.body.email;
-        res.redirect('/customers/profile');
+
+        // Als de update succesvol was, werk de sessie bij.
+        req.session.customer.first_name = customerData.firstName;
+        req.session.customer.last_name = customerData.lastName;
+        req.session.customer.email = customerData.email;
+
+        // Voeg een succesbericht toe aan het model.
+        model.success = 'Profile successfully updated!';
+        
+        // Render de profielpagina opnieuw met het succesbericht.
+        res.render('customer/profile', model);
     });
 }
 
