@@ -13,6 +13,7 @@ router.post("/watchlist/add", customerController.addFavorite);
 router.post("/watchlist/remove", customerController.removeFavorite);
 router.post("/register", customerController.registerCustomer);
 router.post("/profile/update", customerController.updateProfile);
+router.post("/profile/delete", customerController.deleteProfile);
 
 module.exports = router;
 

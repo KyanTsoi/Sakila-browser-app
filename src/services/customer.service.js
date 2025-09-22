@@ -78,6 +78,11 @@ function removeMovieFromWatchlist(customerId, filmId, callback) {
     return customerDAO.removeFavoriteMovie(customerId, filmId, callback);
 }
 
+function deleteCustomer(id, callback) {
+    return customerDAO.deleteCustomerById(id, callback);
+}
+
+
 module.exports = {
     getCustomerById,
     authenticateCustomer,

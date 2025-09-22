@@ -1,5 +1,3 @@
-//- In views/customer/profile.pug
-
 extends ../layout
 
 block content
@@ -28,3 +26,28 @@ block content
             input.form-control(type="email", id="email", name="email", value=customer.email, required)
 
           button.btn.btn-primary(type="submit") Update Profile
+        
+        hr.my-4
+
+        //- SECTIE VOOR ACCOUNT VERWIJDEREN
+        div
+          h5 Danger Zone
+          p.text-muted Once you delete your account, there is no going back. Please be certain.
+          //- Knop die de modal opent
+          button.btn.btn-danger(type="button", data-bs-toggle="modal", data-bs-target="#confirmDeleteModal") Delete Account
+
+  //- DE MODAL VOOR BEVESTIGING (buiten de .home-content-box)
+  #confirmDeleteModal.modal.fade(tabindex="-1", aria-labelledby="confirmDeleteModalLabel", aria-hidden="true")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h5.modal-title#confirmDeleteModalLabel Are you absolutely sure?
+          button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+        .modal-body
+          p This action cannot be undone. This will permanently delete your account and all associated data, including your watchlist.
+        .modal-footer
+          button.btn.btn-secondary(type="button", data-bs-dismiss="modal") Cancel
+          //- Het formulier dat de delete actie uitvoert
+          form(method="POST", action="/customers/profile/delete")
+            button.btn.btn-danger(type="submit") Yes, delete my account
+

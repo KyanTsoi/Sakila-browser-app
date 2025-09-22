@@ -163,6 +163,25 @@ function updateProfile(req, res, next) {
     });
 }
 
+function deleteProfile(req, res, next) {
+    if (!req.session.customer) {
+        return res.redirect('/login');
+    }
+    const customerId = req.session.customer.customer_id;
+    customerService.deleteCustomer(customerId, (err, result) => {
+        if (err) {
+            return next(err);
+        }
+        req.session.destroy(err => {
+            if (err) {
+                return next(err);
+            }
+            res.redirect('/');
+        });
+    });
+}
+
+
 module.exports = { 
     showRegisterForm, 
     registerCustomer, 
@@ -171,5 +190,6 @@ module.exports = {
     addFavorite, 
     removeFavorite,
     showProfile,
-    updateProfile
+    updateProfile,
+    deleteProfile
 };

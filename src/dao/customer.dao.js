@@ -104,6 +104,32 @@ function removeFavoriteMovie(customerId, filmId, callback) {
     });
 }
 
+function deleteCustomerById(id, callback) {
+    // We moeten gerelateerde data in de juiste volgorde verwijderen
+    // om foreign key errors te voorkomen.
+
+    // Stap 1: Verwijder favorieten
+    pool.query('DELETE FROM customer_favorites WHERE customer_id = ?', [id], (err1) => {
+        if (err1) return callback(err1);
+
+        // Stap 2: Verwijder betalingen
+        pool.query('DELETE FROM payment WHERE customer_id = ?', [id], (err2) => {
+            if (err2) return callback(err2);
+
+            // Stap 3: Verwijder huurgeschiedenis
+            pool.query('DELETE FROM rental WHERE customer_id = ?', [id], (err3) => {
+                if (err3) return callback(err3);
+
+                // Stap 4: Verwijder de klant zelf
+                pool.query('DELETE FROM customer WHERE customer_id = ?', [id], (err4, results) => {
+                    if (err4) return callback(err4);
+                    callback(null, results);
+                });
+            });
+        });
+    });
+}
+
 module.exports = { 
     findCustomerById,
     findCustomerByEmail,
@@ -113,5 +139,6 @@ module.exports = {
     isMovieInFavorites,
     addFavoriteMovie,
     removeFavoriteMovie,
-    countFavoriteMovies
+    countFavoriteMovies,
+    deleteCustomerById
 };
