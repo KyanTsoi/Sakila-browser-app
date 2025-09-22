@@ -91,5 +91,6 @@ module.exports = {
     getPaginatedWatchlist,
     checkIfMovieIsFavorite,
     addMovieToWatchlist,
-    removeMovieFromWatchlist
+    removeMovieFromWatchlist,
+    deleteCustomer
 };
